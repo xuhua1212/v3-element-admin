@@ -2,10 +2,11 @@
  * @Author: xuhua
  * @Date: 2023-08-23 16:23:23
  * @LastEditors: xuhua
- * @LastEditTime: 2023-08-24 17:50:43
+ * @LastEditTime: 2023-08-24 18:18:55
  * @FilePath: /v3-element-admin/src/types/env.d.ts
  * @Description: env环境变量类型声明文件
  */
+/// <reference types="vite/client" />
 declare module "*.vue" {
   import { DefineComponent } from "vue";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types

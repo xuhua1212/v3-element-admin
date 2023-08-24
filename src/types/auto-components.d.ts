@@ -7,10 +7,13 @@ export {}
 
 declare module "vue" {
   export interface GlobalComponents {
+    Breadcrumb: (typeof import("./../components/Breadcrumb/index.vue"))["default"];
     ElButton: (typeof import("element-plus/es"))["ElButton"];
+    Hamburger: (typeof import("./../components/Hamburger/index.vue"))["default"];
     HelloWorld: (typeof import("./../components/HelloWorld.vue"))["default"];
     IconSelect: (typeof import("./../components/IconSelect/index.vue"))["default"];
     LangSelect: (typeof import("./../components/LangSelect/index.vue"))["default"];
+    RightPanel: (typeof import("./../components/RightPanel/index.vue"))["default"];
     RouterLink: (typeof import("vue-router"))["RouterLink"];
     RouterView: (typeof import("vue-router"))["RouterView"];
     Setting: (typeof import("./../components/Setting/index.vue"))["default"];

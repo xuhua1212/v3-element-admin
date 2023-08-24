@@ -2,7 +2,7 @@
  * @Author: xuhua
  * @Date: 2023-08-23 16:05:31
  * @LastEditors: xuhua
- * @LastEditTime: 2023-08-23 16:06:45
+ * @LastEditTime: 2023-08-24 18:22:10
  * @FilePath: /v3-element-admin/src/api/auth/types.ts
  * @Description:
  */

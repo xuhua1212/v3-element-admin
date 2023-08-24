@@ -2,7 +2,7 @@
  * @Author: xuhua
  * @Date: 2023-08-24 10:12:19
  * @LastEditors: xuhua
- * @LastEditTime: 2023-08-24 10:20:12
+ * @LastEditTime: 2023-08-24 18:22:41
  * @FilePath: /v3-element-admin/src/router/index.ts
  * @Description:
  */
@@ -24,7 +24,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: "login",
+    path: "/login",
     component: () => import("@/views/login/index.vue"),
     meta: { hidden: true },
   },

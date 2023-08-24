@@ -1,3 +1,11 @@
+/*
+ * @Author: xuhua
+ * @Date: 2023-08-24 17:46:44
+ * @LastEditors: xuhua
+ * @LastEditTime: 2023-08-24 18:31:48
+ * @FilePath: /v3-element-admin/src/permission.ts
+ * @Description:
+ */
 import router from "@/router";
 import { useUserStoreHook } from "@/store/modules/user";
 import { usePermissionStoreHook } from "@/store/modules/permission";
@@ -6,8 +14,6 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
 NProgress.configure({ showSpinner: false }); // 进度条
-
-const permissionStore = usePermissionStoreHook();
 
 // 白名单路由
 const whiteList = ["/login"];
@@ -32,6 +38,7 @@ router.beforeEach(async (to, from, next) => {
         }
       } else {
         try {
+          const permissionStore = usePermissionStoreHook();
           const { roles } = await userStore.getInfo();
           const accessRoutes = await permissionStore.generateRoutes(roles);
           accessRoutes.forEach((route) => {

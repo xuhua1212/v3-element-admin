@@ -76,9 +76,8 @@
 
 <script setup lang="ts">
 import router from "@/router";
-import LangSelect from "@/components/LangSelect/index.vue";
-import SvgIcon from "@/components/SvgIcon/index.vue";
 
+import { LocationQuery, LocationQueryValue } from "vue-router";
 // 状态管理依赖
 import { useUserStore } from "@/store/modules/user";
 
@@ -125,7 +124,7 @@ const loginRules = {
 /**
  * 密码校验器
  */
-function passwordValidator(rule: any, value: any, callback: any) {
+function passwordValidator(_rule: any, value: any, callback: any) {
   if (value.length < 6) {
     callback(new Error("The password can not be less than 6 digits"));
   } else {

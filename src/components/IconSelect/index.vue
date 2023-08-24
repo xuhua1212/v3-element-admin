@@ -2,7 +2,7 @@
  * @Author: xuhua
  * @Date: 2023-08-24 16:06:31
  * @LastEditors: xuhua
- * @LastEditTime: 2023-08-24 16:23:17
+ * @LastEditTime: 2023-08-24 18:19:41
  * @FilePath: /v3-element-admin/src/components/IconSelect/index.vue
  * @Description: 图标选择器
 -->
@@ -29,7 +29,7 @@ const iconSelectorRef = ref(null);
  * 加载 ICON
  */
 function loadIcons() {
-  const icons = import.meta.glob("../../assets/icons/*.svg");
+  const icons = import.meta?.glob("../../assets/icons/*.svg");
   for (const icon in icons) {
     const iconName = icon.split("assets/icons/")[1].split(".svg")[0];
     iconNames.push(iconName);
@@ -79,8 +79,8 @@ onMounted(() => {
           @click="visible = !visible"
           class="cursor-pointer text-[#999] absolute right-[10px] top-0 height-[32px] leading-[32px]"
         >
-          <i-ep-caret-top v-show="visible"></i-ep-caret-top>
-          <i-ep-caret-bottom v-show="!visible"></i-ep-caret-bottom>
+          <i-ep-caret-top v-show="visible" />
+          <i-ep-caret-bottom v-show="!visible" />
         </div>
       </template>
 
