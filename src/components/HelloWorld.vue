@@ -1,38 +1,31 @@
+<!--
+ * @Author: xuhua
+ * @Date: 2023-08-23 14:13:51
+ * @LastEditors: xuhua
+ * @LastEditTime: 2023-08-23 17:39:50
+ * @FilePath: /v3-element-admin/src/components/HelloWorld.vue
+ * @Description: 
+-->
 <script setup lang="ts">
-import { ref } from 'vue'
+import variables from "@/styles/variables.module.scss";
+console.log("file: HelloWorld.vue:11 ~ variables:", variables);
+console.log(variables.bgColor);
+console.log(import.meta.env.VITE_APP_PORT);
 
-defineProps<{ msg: string }>()
-
-const count = ref(0)
+const handleMsg = () => {
+  ElMessage.success("点我成功");
+};
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
-  </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Install
-    <a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
-    in your IDE for a better DX
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+  <div class="box" :style="{ 'background-color': variables.bgColor }"></div>
+  <span class="text-blue">111</span>
+  <el-button @click="handleMsg" type="primary" class="text-emerald">点我</el-button>
 </template>
 
-<style scoped>
-.read-the-docs {
-  color: #888;
+<style lang="scss" scoped>
+.box {
+  width: 100px;
+  height: 100px;
 }
 </style>

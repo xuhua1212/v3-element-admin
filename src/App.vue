@@ -1,5 +1,13 @@
+<!--
+ * @Author: xuhua
+ * @Date: 2023-08-23 14:13:51
+ * @LastEditors: xuhua
+ * @LastEditTime: 2023-08-23 14:21:36
+ * @FilePath: /v3-element-admin/src/App.vue
+ * @Description: 
+-->
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "@/components/HelloWorld.vue";
 </script>
 
 <template>
@@ -21,9 +29,11 @@ import HelloWorld from './components/HelloWorld.vue'
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
 }
