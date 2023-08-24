@@ -2,7 +2,7 @@
  * @Author: xuhua
  * @Date: 2023-08-23 14:13:51
  * @LastEditors: xuhua
- * @LastEditTime: 2023-08-23 17:31:53
+ * @LastEditTime: 2023-08-24 17:59:00
  * @FilePath: /v3-element-admin/vite.config.ts
  * @Description:
  */
@@ -58,7 +58,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       UnoCSS({}),
       AutoImport({
         // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
-        imports: ["vue", "@vueuse/core"],
+        imports: ["vue", "@vueuse/core", "vue-router", "pinia"],
         eslintrc: {
           enabled: true, // 是否自动生成 eslint 规则，建议生成之后设置 false
           filepath: "./.eslintrc-auto-import.json", // 指定自动导入函数 eslint 规则的文件
@@ -100,5 +100,68 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         symbolId: "icon-[dir]-[name]",
       }),
     ],
+    // 预加载项目必需的组件
+    optimizeDeps: {
+      include: [
+        "vue",
+        "vue-router",
+        "pinia",
+        "axios",
+        "element-plus/es/components/form/style/css",
+        "element-plus/es/components/form-item/style/css",
+        "element-plus/es/components/button/style/css",
+        "element-plus/es/components/input/style/css",
+        "element-plus/es/components/input-number/style/css",
+        "element-plus/es/components/switch/style/css",
+        "element-plus/es/components/upload/style/css",
+        "element-plus/es/components/menu/style/css",
+        "element-plus/es/components/col/style/css",
+        "element-plus/es/components/icon/style/css",
+        "element-plus/es/components/row/style/css",
+        "element-plus/es/components/tag/style/css",
+        "element-plus/es/components/dialog/style/css",
+        "element-plus/es/components/loading/style/css",
+        "element-plus/es/components/radio/style/css",
+        "element-plus/es/components/radio-group/style/css",
+        "element-plus/es/components/popover/style/css",
+        "element-plus/es/components/scrollbar/style/css",
+        "element-plus/es/components/tooltip/style/css",
+        "element-plus/es/components/dropdown/style/css",
+        "element-plus/es/components/dropdown-menu/style/css",
+        "element-plus/es/components/dropdown-item/style/css",
+        "element-plus/es/components/sub-menu/style/css",
+        "element-plus/es/components/menu-item/style/css",
+        "element-plus/es/components/divider/style/css",
+        "element-plus/es/components/card/style/css",
+        "element-plus/es/components/link/style/css",
+        "element-plus/es/components/breadcrumb/style/css",
+        "element-plus/es/components/breadcrumb-item/style/css",
+        "element-plus/es/components/table/style/css",
+        "element-plus/es/components/tree-select/style/css",
+        "element-plus/es/components/table-column/style/css",
+        "element-plus/es/components/select/style/css",
+        "element-plus/es/components/option/style/css",
+        "element-plus/es/components/pagination/style/css",
+        "element-plus/es/components/tree/style/css",
+        "element-plus/es/components/alert/style/css",
+        "element-plus/es/components/radio-button/style/css",
+        "element-plus/es/components/checkbox-group/style/css",
+        "element-plus/es/components/checkbox/style/css",
+        "element-plus/es/components/tabs/style/css",
+        "element-plus/es/components/tab-pane/style/css",
+        "element-plus/es/components/rate/style/css",
+        "element-plus/es/components/date-picker/style/css",
+        "element-plus/es/components/notification/style/css",
+        "@vueuse/core",
+        "sortablejs",
+
+        "path-to-regexp",
+        "echarts",
+        "@wangeditor/editor",
+        "@wangeditor/editor-for-vue",
+        "vue-i18n",
+        "codemirror",
+      ],
+    },
   };
 });

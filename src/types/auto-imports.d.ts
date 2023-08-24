@@ -8,6 +8,7 @@ declare global {
   const EffectScope: (typeof import("vue"))["EffectScope"];
   const ElMessage: (typeof import("element-plus/es"))["ElMessage"];
   const ElMessageBox: (typeof import("element-plus/es"))["ElMessageBox"];
+  const acceptHMRUpdate: (typeof import("pinia"))["acceptHMRUpdate"];
   const asyncComputed: (typeof import("@vueuse/core"))["asyncComputed"];
   const autoResetRef: (typeof import("@vueuse/core"))["autoResetRef"];
   const computed: (typeof import("vue"))["computed"];
@@ -21,6 +22,7 @@ declare global {
   const createEventHook: (typeof import("@vueuse/core"))["createEventHook"];
   const createGlobalState: (typeof import("@vueuse/core"))["createGlobalState"];
   const createInjectionState: (typeof import("@vueuse/core"))["createInjectionState"];
+  const createPinia: (typeof import("pinia"))["createPinia"];
   const createReactiveFn: (typeof import("@vueuse/core"))["createReactiveFn"];
   const createReusableTemplate: (typeof import("@vueuse/core"))["createReusableTemplate"];
   const createSharedComposable: (typeof import("@vueuse/core"))["createSharedComposable"];
@@ -31,9 +33,11 @@ declare global {
   const debouncedWatch: (typeof import("@vueuse/core"))["debouncedWatch"];
   const defineAsyncComponent: (typeof import("vue"))["defineAsyncComponent"];
   const defineComponent: (typeof import("vue"))["defineComponent"];
+  const defineStore: (typeof import("pinia"))["defineStore"];
   const eagerComputed: (typeof import("@vueuse/core"))["eagerComputed"];
   const effectScope: (typeof import("vue"))["effectScope"];
   const extendRef: (typeof import("@vueuse/core"))["extendRef"];
+  const getActivePinia: (typeof import("pinia"))["getActivePinia"];
   const getCurrentInstance: (typeof import("vue"))["getCurrentInstance"];
   const getCurrentScope: (typeof import("vue"))["getCurrentScope"];
   const h: (typeof import("vue"))["h"];
@@ -45,10 +49,17 @@ declare global {
   const isReadonly: (typeof import("vue"))["isReadonly"];
   const isRef: (typeof import("vue"))["isRef"];
   const makeDestructurable: (typeof import("@vueuse/core"))["makeDestructurable"];
+  const mapActions: (typeof import("pinia"))["mapActions"];
+  const mapGetters: (typeof import("pinia"))["mapGetters"];
+  const mapState: (typeof import("pinia"))["mapState"];
+  const mapStores: (typeof import("pinia"))["mapStores"];
+  const mapWritableState: (typeof import("pinia"))["mapWritableState"];
   const markRaw: (typeof import("vue"))["markRaw"];
   const nextTick: (typeof import("vue"))["nextTick"];
   const onActivated: (typeof import("vue"))["onActivated"];
   const onBeforeMount: (typeof import("vue"))["onBeforeMount"];
+  const onBeforeRouteLeave: (typeof import("vue-router"))["onBeforeRouteLeave"];
+  const onBeforeRouteUpdate: (typeof import("vue-router"))["onBeforeRouteUpdate"];
   const onBeforeUnmount: (typeof import("vue"))["onBeforeUnmount"];
   const onBeforeUpdate: (typeof import("vue"))["onBeforeUpdate"];
   const onClickOutside: (typeof import("@vueuse/core"))["onClickOutside"];
@@ -82,9 +93,12 @@ declare global {
   const resolveComponent: (typeof import("vue"))["resolveComponent"];
   const resolveRef: (typeof import("@vueuse/core"))["resolveRef"];
   const resolveUnref: (typeof import("@vueuse/core"))["resolveUnref"];
+  const setActivePinia: (typeof import("pinia"))["setActivePinia"];
+  const setMapStoreSuffix: (typeof import("pinia"))["setMapStoreSuffix"];
   const shallowReactive: (typeof import("vue"))["shallowReactive"];
   const shallowReadonly: (typeof import("vue"))["shallowReadonly"];
   const shallowRef: (typeof import("vue"))["shallowRef"];
+  const storeToRefs: (typeof import("pinia"))["storeToRefs"];
   const syncRef: (typeof import("@vueuse/core"))["syncRef"];
   const syncRefs: (typeof import("@vueuse/core"))["syncRefs"];
   const templateRef: (typeof import("@vueuse/core"))["templateRef"];
@@ -178,6 +192,7 @@ declare global {
   const useIntervalFn: (typeof import("@vueuse/core"))["useIntervalFn"];
   const useKeyModifier: (typeof import("@vueuse/core"))["useKeyModifier"];
   const useLastChanged: (typeof import("@vueuse/core"))["useLastChanged"];
+  const useLink: (typeof import("vue-router"))["useLink"];
   const useLocalStorage: (typeof import("@vueuse/core"))["useLocalStorage"];
   const useMagicKeys: (typeof import("@vueuse/core"))["useMagicKeys"];
   const useManualRefHistory: (typeof import("@vueuse/core"))["useManualRefHistory"];
@@ -213,6 +228,8 @@ declare global {
   const useRafFn: (typeof import("@vueuse/core"))["useRafFn"];
   const useRefHistory: (typeof import("@vueuse/core"))["useRefHistory"];
   const useResizeObserver: (typeof import("@vueuse/core"))["useResizeObserver"];
+  const useRoute: (typeof import("vue-router"))["useRoute"];
+  const useRouter: (typeof import("vue-router"))["useRouter"];
   const useScreenOrientation: (typeof import("@vueuse/core"))["useScreenOrientation"];
   const useScreenSafeArea: (typeof import("@vueuse/core"))["useScreenSafeArea"];
   const useScriptTag: (typeof import("@vueuse/core"))["useScriptTag"];
@@ -281,7 +298,16 @@ declare global {
 // for type re-export
 declare global {
   // @ts-ignore
-  export type { Component, ComponentPublicInstance, ComputedRef, InjectionKey, PropType, Ref, VNode } from "vue";
+  export type {
+    Component,
+    ComponentPublicInstance,
+    ComputedRef,
+    InjectionKey,
+    PropType,
+    Ref,
+    VNode,
+    WritableComputedRef,
+  } from "vue";
 }
 // for vue template auto import
 import { UnwrapRef } from "vue";
@@ -290,6 +316,7 @@ declare module "vue" {
     readonly EffectScope: UnwrapRef<(typeof import("vue"))["EffectScope"]>;
     readonly ElMessage: UnwrapRef<(typeof import("element-plus/es"))["ElMessage"]>;
     readonly ElMessageBox: UnwrapRef<(typeof import("element-plus/es"))["ElMessageBox"]>;
+    readonly acceptHMRUpdate: UnwrapRef<(typeof import("pinia"))["acceptHMRUpdate"]>;
     readonly asyncComputed: UnwrapRef<(typeof import("@vueuse/core"))["asyncComputed"]>;
     readonly autoResetRef: UnwrapRef<(typeof import("@vueuse/core"))["autoResetRef"]>;
     readonly computed: UnwrapRef<(typeof import("vue"))["computed"]>;
@@ -303,6 +330,7 @@ declare module "vue" {
     readonly createEventHook: UnwrapRef<(typeof import("@vueuse/core"))["createEventHook"]>;
     readonly createGlobalState: UnwrapRef<(typeof import("@vueuse/core"))["createGlobalState"]>;
     readonly createInjectionState: UnwrapRef<(typeof import("@vueuse/core"))["createInjectionState"]>;
+    readonly createPinia: UnwrapRef<(typeof import("pinia"))["createPinia"]>;
     readonly createReactiveFn: UnwrapRef<(typeof import("@vueuse/core"))["createReactiveFn"]>;
     readonly createReusableTemplate: UnwrapRef<(typeof import("@vueuse/core"))["createReusableTemplate"]>;
     readonly createSharedComposable: UnwrapRef<(typeof import("@vueuse/core"))["createSharedComposable"]>;
@@ -313,9 +341,11 @@ declare module "vue" {
     readonly debouncedWatch: UnwrapRef<(typeof import("@vueuse/core"))["debouncedWatch"]>;
     readonly defineAsyncComponent: UnwrapRef<(typeof import("vue"))["defineAsyncComponent"]>;
     readonly defineComponent: UnwrapRef<(typeof import("vue"))["defineComponent"]>;
+    readonly defineStore: UnwrapRef<(typeof import("pinia"))["defineStore"]>;
     readonly eagerComputed: UnwrapRef<(typeof import("@vueuse/core"))["eagerComputed"]>;
     readonly effectScope: UnwrapRef<(typeof import("vue"))["effectScope"]>;
     readonly extendRef: UnwrapRef<(typeof import("@vueuse/core"))["extendRef"]>;
+    readonly getActivePinia: UnwrapRef<(typeof import("pinia"))["getActivePinia"]>;
     readonly getCurrentInstance: UnwrapRef<(typeof import("vue"))["getCurrentInstance"]>;
     readonly getCurrentScope: UnwrapRef<(typeof import("vue"))["getCurrentScope"]>;
     readonly h: UnwrapRef<(typeof import("vue"))["h"]>;
@@ -327,10 +357,17 @@ declare module "vue" {
     readonly isReadonly: UnwrapRef<(typeof import("vue"))["isReadonly"]>;
     readonly isRef: UnwrapRef<(typeof import("vue"))["isRef"]>;
     readonly makeDestructurable: UnwrapRef<(typeof import("@vueuse/core"))["makeDestructurable"]>;
+    readonly mapActions: UnwrapRef<(typeof import("pinia"))["mapActions"]>;
+    readonly mapGetters: UnwrapRef<(typeof import("pinia"))["mapGetters"]>;
+    readonly mapState: UnwrapRef<(typeof import("pinia"))["mapState"]>;
+    readonly mapStores: UnwrapRef<(typeof import("pinia"))["mapStores"]>;
+    readonly mapWritableState: UnwrapRef<(typeof import("pinia"))["mapWritableState"]>;
     readonly markRaw: UnwrapRef<(typeof import("vue"))["markRaw"]>;
     readonly nextTick: UnwrapRef<(typeof import("vue"))["nextTick"]>;
     readonly onActivated: UnwrapRef<(typeof import("vue"))["onActivated"]>;
     readonly onBeforeMount: UnwrapRef<(typeof import("vue"))["onBeforeMount"]>;
+    readonly onBeforeRouteLeave: UnwrapRef<(typeof import("vue-router"))["onBeforeRouteLeave"]>;
+    readonly onBeforeRouteUpdate: UnwrapRef<(typeof import("vue-router"))["onBeforeRouteUpdate"]>;
     readonly onBeforeUnmount: UnwrapRef<(typeof import("vue"))["onBeforeUnmount"]>;
     readonly onBeforeUpdate: UnwrapRef<(typeof import("vue"))["onBeforeUpdate"]>;
     readonly onClickOutside: UnwrapRef<(typeof import("@vueuse/core"))["onClickOutside"]>;
@@ -364,9 +401,12 @@ declare module "vue" {
     readonly resolveComponent: UnwrapRef<(typeof import("vue"))["resolveComponent"]>;
     readonly resolveRef: UnwrapRef<(typeof import("@vueuse/core"))["resolveRef"]>;
     readonly resolveUnref: UnwrapRef<(typeof import("@vueuse/core"))["resolveUnref"]>;
+    readonly setActivePinia: UnwrapRef<(typeof import("pinia"))["setActivePinia"]>;
+    readonly setMapStoreSuffix: UnwrapRef<(typeof import("pinia"))["setMapStoreSuffix"]>;
     readonly shallowReactive: UnwrapRef<(typeof import("vue"))["shallowReactive"]>;
     readonly shallowReadonly: UnwrapRef<(typeof import("vue"))["shallowReadonly"]>;
     readonly shallowRef: UnwrapRef<(typeof import("vue"))["shallowRef"]>;
+    readonly storeToRefs: UnwrapRef<(typeof import("pinia"))["storeToRefs"]>;
     readonly syncRef: UnwrapRef<(typeof import("@vueuse/core"))["syncRef"]>;
     readonly syncRefs: UnwrapRef<(typeof import("@vueuse/core"))["syncRefs"]>;
     readonly templateRef: UnwrapRef<(typeof import("@vueuse/core"))["templateRef"]>;
@@ -460,6 +500,7 @@ declare module "vue" {
     readonly useIntervalFn: UnwrapRef<(typeof import("@vueuse/core"))["useIntervalFn"]>;
     readonly useKeyModifier: UnwrapRef<(typeof import("@vueuse/core"))["useKeyModifier"]>;
     readonly useLastChanged: UnwrapRef<(typeof import("@vueuse/core"))["useLastChanged"]>;
+    readonly useLink: UnwrapRef<(typeof import("vue-router"))["useLink"]>;
     readonly useLocalStorage: UnwrapRef<(typeof import("@vueuse/core"))["useLocalStorage"]>;
     readonly useMagicKeys: UnwrapRef<(typeof import("@vueuse/core"))["useMagicKeys"]>;
     readonly useManualRefHistory: UnwrapRef<(typeof import("@vueuse/core"))["useManualRefHistory"]>;
@@ -495,6 +536,8 @@ declare module "vue" {
     readonly useRafFn: UnwrapRef<(typeof import("@vueuse/core"))["useRafFn"]>;
     readonly useRefHistory: UnwrapRef<(typeof import("@vueuse/core"))["useRefHistory"]>;
     readonly useResizeObserver: UnwrapRef<(typeof import("@vueuse/core"))["useResizeObserver"]>;
+    readonly useRoute: UnwrapRef<(typeof import("vue-router"))["useRoute"]>;
+    readonly useRouter: UnwrapRef<(typeof import("vue-router"))["useRouter"]>;
     readonly useScreenOrientation: UnwrapRef<(typeof import("@vueuse/core"))["useScreenOrientation"]>;
     readonly useScreenSafeArea: UnwrapRef<(typeof import("@vueuse/core"))["useScreenSafeArea"]>;
     readonly useScriptTag: UnwrapRef<(typeof import("@vueuse/core"))["useScriptTag"]>;
@@ -566,6 +609,7 @@ declare module "@vue/runtime-core" {
     readonly EffectScope: UnwrapRef<(typeof import("vue"))["EffectScope"]>;
     readonly ElMessage: UnwrapRef<(typeof import("element-plus/es"))["ElMessage"]>;
     readonly ElMessageBox: UnwrapRef<(typeof import("element-plus/es"))["ElMessageBox"]>;
+    readonly acceptHMRUpdate: UnwrapRef<(typeof import("pinia"))["acceptHMRUpdate"]>;
     readonly asyncComputed: UnwrapRef<(typeof import("@vueuse/core"))["asyncComputed"]>;
     readonly autoResetRef: UnwrapRef<(typeof import("@vueuse/core"))["autoResetRef"]>;
     readonly computed: UnwrapRef<(typeof import("vue"))["computed"]>;
@@ -579,6 +623,7 @@ declare module "@vue/runtime-core" {
     readonly createEventHook: UnwrapRef<(typeof import("@vueuse/core"))["createEventHook"]>;
     readonly createGlobalState: UnwrapRef<(typeof import("@vueuse/core"))["createGlobalState"]>;
     readonly createInjectionState: UnwrapRef<(typeof import("@vueuse/core"))["createInjectionState"]>;
+    readonly createPinia: UnwrapRef<(typeof import("pinia"))["createPinia"]>;
     readonly createReactiveFn: UnwrapRef<(typeof import("@vueuse/core"))["createReactiveFn"]>;
     readonly createReusableTemplate: UnwrapRef<(typeof import("@vueuse/core"))["createReusableTemplate"]>;
     readonly createSharedComposable: UnwrapRef<(typeof import("@vueuse/core"))["createSharedComposable"]>;
@@ -589,9 +634,11 @@ declare module "@vue/runtime-core" {
     readonly debouncedWatch: UnwrapRef<(typeof import("@vueuse/core"))["debouncedWatch"]>;
     readonly defineAsyncComponent: UnwrapRef<(typeof import("vue"))["defineAsyncComponent"]>;
     readonly defineComponent: UnwrapRef<(typeof import("vue"))["defineComponent"]>;
+    readonly defineStore: UnwrapRef<(typeof import("pinia"))["defineStore"]>;
     readonly eagerComputed: UnwrapRef<(typeof import("@vueuse/core"))["eagerComputed"]>;
     readonly effectScope: UnwrapRef<(typeof import("vue"))["effectScope"]>;
     readonly extendRef: UnwrapRef<(typeof import("@vueuse/core"))["extendRef"]>;
+    readonly getActivePinia: UnwrapRef<(typeof import("pinia"))["getActivePinia"]>;
     readonly getCurrentInstance: UnwrapRef<(typeof import("vue"))["getCurrentInstance"]>;
     readonly getCurrentScope: UnwrapRef<(typeof import("vue"))["getCurrentScope"]>;
     readonly h: UnwrapRef<(typeof import("vue"))["h"]>;
@@ -603,10 +650,17 @@ declare module "@vue/runtime-core" {
     readonly isReadonly: UnwrapRef<(typeof import("vue"))["isReadonly"]>;
     readonly isRef: UnwrapRef<(typeof import("vue"))["isRef"]>;
     readonly makeDestructurable: UnwrapRef<(typeof import("@vueuse/core"))["makeDestructurable"]>;
+    readonly mapActions: UnwrapRef<(typeof import("pinia"))["mapActions"]>;
+    readonly mapGetters: UnwrapRef<(typeof import("pinia"))["mapGetters"]>;
+    readonly mapState: UnwrapRef<(typeof import("pinia"))["mapState"]>;
+    readonly mapStores: UnwrapRef<(typeof import("pinia"))["mapStores"]>;
+    readonly mapWritableState: UnwrapRef<(typeof import("pinia"))["mapWritableState"]>;
     readonly markRaw: UnwrapRef<(typeof import("vue"))["markRaw"]>;
     readonly nextTick: UnwrapRef<(typeof import("vue"))["nextTick"]>;
     readonly onActivated: UnwrapRef<(typeof import("vue"))["onActivated"]>;
     readonly onBeforeMount: UnwrapRef<(typeof import("vue"))["onBeforeMount"]>;
+    readonly onBeforeRouteLeave: UnwrapRef<(typeof import("vue-router"))["onBeforeRouteLeave"]>;
+    readonly onBeforeRouteUpdate: UnwrapRef<(typeof import("vue-router"))["onBeforeRouteUpdate"]>;
     readonly onBeforeUnmount: UnwrapRef<(typeof import("vue"))["onBeforeUnmount"]>;
     readonly onBeforeUpdate: UnwrapRef<(typeof import("vue"))["onBeforeUpdate"]>;
     readonly onClickOutside: UnwrapRef<(typeof import("@vueuse/core"))["onClickOutside"]>;
@@ -640,9 +694,12 @@ declare module "@vue/runtime-core" {
     readonly resolveComponent: UnwrapRef<(typeof import("vue"))["resolveComponent"]>;
     readonly resolveRef: UnwrapRef<(typeof import("@vueuse/core"))["resolveRef"]>;
     readonly resolveUnref: UnwrapRef<(typeof import("@vueuse/core"))["resolveUnref"]>;
+    readonly setActivePinia: UnwrapRef<(typeof import("pinia"))["setActivePinia"]>;
+    readonly setMapStoreSuffix: UnwrapRef<(typeof import("pinia"))["setMapStoreSuffix"]>;
     readonly shallowReactive: UnwrapRef<(typeof import("vue"))["shallowReactive"]>;
     readonly shallowReadonly: UnwrapRef<(typeof import("vue"))["shallowReadonly"]>;
     readonly shallowRef: UnwrapRef<(typeof import("vue"))["shallowRef"]>;
+    readonly storeToRefs: UnwrapRef<(typeof import("pinia"))["storeToRefs"]>;
     readonly syncRef: UnwrapRef<(typeof import("@vueuse/core"))["syncRef"]>;
     readonly syncRefs: UnwrapRef<(typeof import("@vueuse/core"))["syncRefs"]>;
     readonly templateRef: UnwrapRef<(typeof import("@vueuse/core"))["templateRef"]>;
@@ -736,6 +793,7 @@ declare module "@vue/runtime-core" {
     readonly useIntervalFn: UnwrapRef<(typeof import("@vueuse/core"))["useIntervalFn"]>;
     readonly useKeyModifier: UnwrapRef<(typeof import("@vueuse/core"))["useKeyModifier"]>;
     readonly useLastChanged: UnwrapRef<(typeof import("@vueuse/core"))["useLastChanged"]>;
+    readonly useLink: UnwrapRef<(typeof import("vue-router"))["useLink"]>;
     readonly useLocalStorage: UnwrapRef<(typeof import("@vueuse/core"))["useLocalStorage"]>;
     readonly useMagicKeys: UnwrapRef<(typeof import("@vueuse/core"))["useMagicKeys"]>;
     readonly useManualRefHistory: UnwrapRef<(typeof import("@vueuse/core"))["useManualRefHistory"]>;
@@ -771,6 +829,8 @@ declare module "@vue/runtime-core" {
     readonly useRafFn: UnwrapRef<(typeof import("@vueuse/core"))["useRafFn"]>;
     readonly useRefHistory: UnwrapRef<(typeof import("@vueuse/core"))["useRefHistory"]>;
     readonly useResizeObserver: UnwrapRef<(typeof import("@vueuse/core"))["useResizeObserver"]>;
+    readonly useRoute: UnwrapRef<(typeof import("vue-router"))["useRoute"]>;
+    readonly useRouter: UnwrapRef<(typeof import("vue-router"))["useRouter"]>;
     readonly useScreenOrientation: UnwrapRef<(typeof import("@vueuse/core"))["useScreenOrientation"]>;
     readonly useScreenSafeArea: UnwrapRef<(typeof import("@vueuse/core"))["useScreenSafeArea"]>;
     readonly useScriptTag: UnwrapRef<(typeof import("@vueuse/core"))["useScriptTag"]>;

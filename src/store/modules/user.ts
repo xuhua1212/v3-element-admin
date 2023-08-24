@@ -1,25 +1,24 @@
-/*
- * @Author: xuhua
- * @Date: 2023-08-23 16:02:00
- * @LastEditors: xuhua
- * @LastEditTime: 2023-08-24 10:56:10
- * @FilePath: /v3-element-admin/src/store/modules/user.ts
- * @Description:
- */
 import { defineStore } from "pinia";
+
+import { loginApi, logoutApi } from "@/api/auth";
+import { getUserInfo } from "@/api/user";
+import { resetRouter } from "@/router";
 import { store } from "@/store";
+
+import { LoginData } from "@/api/auth/types";
+import { UserInfo } from "@/api/user/types";
 
 import { useStorage } from "@vueuse/core";
 
-import { LoginData } from "@/api/auth/types";
-import { loginApi } from "@/api/auth";
 export const useUserStore = defineStore("user", () => {
   // state
   const userId = ref();
-  const nickname = ref("");
   const token = useStorage("accessToken", "");
-  const roles = ref<string[]>([]);
-  const permissions = ref<string[]>([]);
+  const nickname = ref("");
+  const avatar = ref("");
+  const roles = ref<Array<string>>([]); // 用户角色编码集合 → 判断路由权限
+  const perms = ref<Array<string>>([]); // 用户权限编码集合 → 判断按钮权限
+
   /**
    * 登录调用
    *
@@ -29,9 +28,9 @@ export const useUserStore = defineStore("user", () => {
   function login(loginData: LoginData) {
     return new Promise<void>((resolve, reject) => {
       loginApi(loginData)
-        .then((response: any) => {
-          const { accessToken } = response.data;
-          token.value = accessToken;
+        .then((response) => {
+          const { tokenType, accessToken } = response.data;
+          token.value = tokenType + " " + accessToken; // Bearer eyJhbGciOiJIUzI1NiJ9.xxx.xxx
           resolve();
         })
         .catch((error) => {
@@ -40,13 +39,68 @@ export const useUserStore = defineStore("user", () => {
     });
   }
 
+  // 获取信息(用户昵称、头像、角色集合、权限集合)
+  function getInfo() {
+    return new Promise<UserInfo>((resolve, reject) => {
+      getUserInfo()
+        .then(({ data }) => {
+          if (!data) {
+            return reject("Verification failed, please Login again.");
+          }
+          if (!data.roles || data.roles.length <= 0) {
+            reject("getUserInfo: roles must be a non-null array!");
+          }
+          userId.value = data.userId;
+          nickname.value = data.nickname;
+          avatar.value = data.avatar;
+          roles.value = data.roles;
+          perms.value = data.perms;
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  // 注销
+  function logout() {
+    return new Promise<void>((resolve, reject) => {
+      logoutApi()
+        .then(() => {
+          resetRouter();
+          resetToken();
+          location.reload(); // 清空路由
+          resolve();
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  // 重置
+  function resetToken() {
+    token.value = "";
+    nickname.value = "";
+    avatar.value = "";
+    roles.value = [];
+    perms.value = [];
+  }
   return {
-    userId,
-    nickname,
-    login,
     token,
+    nickname,
+    avatar,
     roles,
-    permissions,
+    perms,
+    login,
+    getInfo,
+    logout,
+    resetToken,
+    /**
+     * 当前登录用户ID
+     */
+    userId,
   };
 });
 
