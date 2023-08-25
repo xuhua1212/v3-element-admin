@@ -2,7 +2,7 @@
  * @Author: xuhua
  * @Date: 2023-08-23 16:39:53
  * @LastEditors: xuhua
- * @LastEditTime: 2023-08-23 17:43:46
+ * @LastEditTime: 2023-08-25 15:51:31
  * @FilePath: /v3-element-admin/src/utils/request.ts
  * @Description: axios封装
  */
@@ -24,6 +24,12 @@ service.interceptors.request.use(
     const userStore = useUserStoreHook();
     if (userStore.token) {
       config.headers["Authorization"] = userStore.token;
+    }
+    if (config.method === "get") {
+      config.params = {
+        _t: new Date().getTime(),
+        ...config.params,
+      };
     }
     return config;
   },

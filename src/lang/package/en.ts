@@ -2,7 +2,7 @@
  * @Author: xuhua
  * @Date: 2023-08-24 12:00:10
  * @LastEditors: xuhua
- * @LastEditTime: 2023-08-24 14:32:48
+ * @LastEditTime: 2023-08-25 14:29:01
  * @FilePath: /v3-element-admin/src/lang/package/en.ts
  * @Description:
  */
@@ -17,7 +17,7 @@ export default {
     title: "v3-element-admin",
     username: "Username",
     password: "Password",
-    loginBtn: "Login",
+    login: "Login",
     remember: "Remember",
     forget: "Forget",
     register: "Register",

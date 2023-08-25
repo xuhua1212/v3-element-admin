@@ -2,18 +2,23 @@
  * @Author: xuhua
  * @Date: 2023-08-23 14:13:51
  * @LastEditors: xuhua
- * @LastEditTime: 2023-08-24 17:59:00
+ * @LastEditTime: 2023-08-25 15:23:34
  * @FilePath: /v3-element-admin/vite.config.ts
  * @Description:
  */
 import vue from "@vitejs/plugin-vue";
 import { ConfigEnv, UserConfig, loadEnv, defineConfig } from "vite";
+
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
+
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+
+import { viteMockServe } from "vite-plugin-mock";
+
 import UnoCSS from "unocss/vite";
 
 import path from "path";
@@ -46,10 +51,10 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       open: true,
       // 反向代理
       proxy: {
-        [env.VITE_APP_BASE_URL]: {
-          target: "http://xxxxx,com",
+        [env.VITE_APP_BASE_API]: {
+          target: `${env.VITE_APP_TARGET_URL}`,
           changeOrigin: true,
-          rewrite: (path) => path.replace(new RegExp(`^${env.VITE_APP_BASE_URL}`), ""),
+          rewrite: (path) => path.replace(new RegExp(`^${env.VITE_APP_BASE_API}`), env.VITE_APP_TARGET_BASE_API), // 替换 /dev-api 为 target 接口地址
         },
       },
     },
@@ -58,7 +63,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       UnoCSS({}),
       AutoImport({
         // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
-        imports: ["vue", "@vueuse/core", "vue-router", "pinia"],
+        imports: ["vue", "@vueuse/core", "vue-router", "pinia", "vue-i18n"],
         eslintrc: {
           enabled: true, // 是否自动生成 eslint 规则，建议生成之后设置 false
           filepath: "./.eslintrc-auto-import.json", // 指定自动导入函数 eslint 规则的文件
@@ -98,6 +103,14 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
         iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
         // 指定symbolId格式
         symbolId: "icon-[dir]-[name]",
+      }),
+      // mock数据
+      viteMockServe({
+        mockPath: "mock", // mock文件存放目录
+        supportTs: false, // 是否读取ts文件模块，设置为true时不能读取js文件
+        localEnabled: mode === "development", // 开发环境是否开启
+        prodEnabled: mode === "development", // 生产环境是否开启
+        logger: true, //--是否在控制台显示请求日志
       }),
     ],
     // 预加载项目必需的组件

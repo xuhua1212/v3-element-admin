@@ -1,7 +1,15 @@
+/*
+ * @Author: xuhua
+ * @Date: 2023-08-24 17:44:28
+ * @LastEditors: xuhua
+ * @LastEditTime: 2023-08-25 14:16:23
+ * @FilePath: /v3-element-admin/src/store/modules/app.ts
+ * @Description:
+ */
 import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
 import defaultSettings from "@/settings";
-
+import { store } from "@/store";
 // 导入 Element Plus 中英文语言包
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 import en from "element-plus/es/locale/lang/en";
@@ -83,3 +91,8 @@ export const useAppStore = defineStore("app", () => {
     openSideBar,
   };
 });
+
+// 非setup
+export function useAppStoreHook() {
+  return useAppStore(store);
+}

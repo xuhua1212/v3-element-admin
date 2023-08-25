@@ -2,7 +2,7 @@
  * @Author: xuhua
  * @Date: 2023-08-23 16:07:27
  * @LastEditors: xuhua
- * @LastEditTime: 2023-08-24 17:57:44
+ * @LastEditTime: 2023-08-25 15:45:12
  * @FilePath: /v3-element-admin/src/api/auth/index.ts
  * @Description:
  */
@@ -17,7 +17,7 @@ import { LoginData, LoginResult, CaptchaResult } from "./types";
  */
 export function loginApi(data: LoginData): AxiosPromise<LoginResult> {
   return request({
-    url: "/login",
+    url: "/api/auth/login",
     method: "post",
     data,
   });
@@ -28,7 +28,7 @@ export function loginApi(data: LoginData): AxiosPromise<LoginResult> {
  */
 export function logoutApi() {
   return request({
-    url: "/api/v1/auth/logout",
+    url: "/api/auth/logout",
     method: "delete",
   });
 }
@@ -38,7 +38,7 @@ export function logoutApi() {
  */
 export function getCaptchaApi(): AxiosPromise<CaptchaResult> {
   return request({
-    url: "/api/v1/auth/captcha",
+    url: "/api/auth/captcha",
     method: "get",
   });
 }

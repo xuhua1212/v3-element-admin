@@ -5,7 +5,6 @@
         <span class="text-2xl flex-1 text-center title">
           {{ $t("login.title") }}
         </span>
-        <lang-select class="text-white! cursor-pointer" />
       </div>
 
       <el-form-item prop="username">
@@ -118,7 +117,7 @@ const loginData = ref<LoginData>({
 const loginRules = {
   username: [{ required: true, trigger: "blur" }],
   password: [{ required: true, trigger: "blur", validator: passwordValidator }],
-  verifyCode: [{ required: true, trigger: "blur" }],
+  // verifyCode: [{ required: true, trigger: "blur" }],
 };
 
 /**
@@ -126,7 +125,7 @@ const loginRules = {
  */
 function passwordValidator(_rule: any, value: any, callback: any) {
   if (value.length < 6) {
-    callback(new Error("The password can not be less than 6 digits"));
+    callback(new Error("密码长度不能小于6位"));
   } else {
     callback();
   }
@@ -195,7 +194,7 @@ onMounted(() => {
   width: 100%;
   min-height: 100%;
   overflow: hidden;
-  background-color: #2d3a4b;
+  background: url("@/assets/images/bg2.jpg") no-repeat center center;
 
   .title-wrap {
     filter: contrast(30);
